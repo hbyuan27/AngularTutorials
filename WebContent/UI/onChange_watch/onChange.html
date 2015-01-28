@@ -1,0 +1,64 @@
+<html ng-app="myApp">
+<head>
+<base href="http://localhost:8080/AngularDemo/">
+<script src="UI/common/js/angular.js"></script>
+<!-- init app -->
+<script>
+	var myAppModule = angular.module("myApp", []);
+</script>
+
+<!-- add controllers -->
+<script>
+	myAppModule.controller("StartUpController", function($scope) {
+		$scope.funding = {
+			startingEstimate : 0,
+			needed : 0
+		};
+
+		computeNeeded = function() {
+			$scope.funding.needed = $scope.funding.startingEstimate * 10;
+		};
+
+		/* when the value of 'funding.startingEstimate' changed, call computeNeeded method.
+		this is to replace the ng-change in case the startingEstimate is bind with multiple model */
+		$scope.$watch('funding.startingEstimate', computeNeeded);
+	});
+</script>
+
+<script>
+	myAppModule.controller("SubmitController", function($scope) {
+		$scope.computeNeeded = function() {
+			$scope.needed = $scope.startingEstimate * 10;
+		};
+		$scope.requestFunding = function() {
+			window.alert("raise a request to the server.");
+		};
+		$scope.reset = function() {
+			$scope.startingEstimate = 0;
+		};
+	});
+</script>
+</head>
+
+<body>
+	<p>Real Time Update: (suppose the data binding is with server)</p>
+	<form ng-controller="StartUpController">
+		Starting: <input ng-model="startingEstimate"> <br />
+		Alternative: <input ng-model="startingEstimate"> <br />
+		Recommendation: <span ng-bind="needed"></span>
+	</form>
+	<br />
+	<p>Using ng-submit:(send request to update data when requestFunding is on processing)</p>
+	<form ng-submit="requestFunding()" ng-controller="SubmitController">
+		<div>
+			<span>Starting:</span> <input ng-change="computeNeeded()"
+				ng-model="startingEstimate">
+		</div>
+		<div>
+			<span>Recommendation:</span> <span ng-bind="needed"></span>
+		</div>
+		<button>Fund my startup!</button>
+		<button ng-click="reset()">Reset</button>
+	</form>
+</body>
+</html>

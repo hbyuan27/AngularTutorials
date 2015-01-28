@@ -1,0 +1,35 @@
+<html ng-app="myApp">
+<head>
+<base href="http://localhost:8080/AngularDemo/">
+<script src="UI/common/js/angular.js"></script>
+<!-- init app -->
+<script>
+	var myAppModule = angular.module("myApp", []);
+</script>
+
+<!-- add controllers -->
+<script>
+	myAppModule.controller("NGSRCController", function($scope) {
+		$scope.icon = {
+			name : 'favicon.ico'
+		};
+		$scope.item = {
+			id : '31'
+		};
+	});
+</script>
+</head>
+
+<body>
+	<div ng-controller='NGSRCController'>
+		<p>Display favicon icon using {{ }}, check the console you will find an error, since browser will load images in parallel with priority</p>
+		<img src="UI/common/images/{{icon.name}}">
+		<p>Display favicon icon using ng-src</p>
+		<img ng-src="UI/common/images/{{icon.name}}">
+		<p>Link to Specified Item:</p>
+		<a href="/shop/category={{item.id}}">a link without ng-href</a>
+		<p>Link to Specified Item with ng-href:</p>
+		<a ng-href="/shop/category={{item.id}}">a link with ng-href</a>
+	</div>
+</body>
+</html>

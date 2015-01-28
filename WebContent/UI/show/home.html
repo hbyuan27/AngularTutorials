@@ -1,0 +1,48 @@
+<html ng-app="myApp">
+<head>
+<base href="http://localhost:8080/AngularDemo/">
+<link href="UI/show/css/show.css" rel="stylesheet" />
+<script src="UI/common/js/angular.js"></script>
+<script src="UI/show/js/controller/controller.js"></script>
+</head>
+<body>
+	<div ng-controller='DeathrayMenuController'>
+		<button ng-click='toggleMenu()'>Toggle Menu</button>
+		<ul ng-show='menuState.show'>
+			<li class='menu-disabled-{{isDisabled}}' ng-click='stun()'>Stun</li>
+			<li ng-click='disintegrate()'>Disintegrate</li>
+			<li ng-click='erase()'>Erase from history</li>
+		</ul>
+	</div>
+
+	<div ng-controller='HeaderController'>
+		<p>*******</p>
+		<!-- using true or false to control the availability of css class -->
+		<div ng-class='{error: isError, warning: isWarning}'>{{messageText}}</div>
+		<p>*******</p>
+		<button ng-click='showError()'>Simulate Error</button>
+		<button ng-click='showWarning()'>Simulate Warning</button>
+	</div>
+
+	<br />
+
+	<div ng-controller='RestaurantTableController'>
+		<table>
+			<tr ng-repeat='restaurant in directory'
+				ng-click='selectRestaurant($index)'
+				ng-class='{selected: $index==selectedRow}'>
+				<td>{{restaurant.name}}</td>
+				<td>{{restaurant.cuisine}}</td>
+			</tr>
+		</table>
+		<br />
+		<table>
+			<tr ng-repeat='restaurant in directory'
+				ng-class='{highlight: $index % 3 == threshold($index)}'>
+				<td>{{restaurant.name}}</td>
+				<td>{{restaurant.cuisine}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

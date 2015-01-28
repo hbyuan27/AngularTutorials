@@ -1,0 +1,72 @@
+<html ng-app="myApp">
+<head>
+<base href="http://localhost:8080/AngularDemo/">
+<script src="UI/common/js/angular.js"></script>
+<!-- init app -->
+<script>
+	var myAppModule = angular.module("myApp", []);
+</script>
+
+<!-- add controllers -->
+<script>
+	var students = [ {
+		name : 'Mary Contrary',
+		id : '1'
+	}, {
+		name : 'Jack Sprat',
+		id : '2'
+	}, {
+		name : 'Jill Hill',
+		id : '3'
+	} ];
+
+	myAppModule.controller("StudentListController", function($scope) {
+		$scope.students = students;
+
+		$scope.insertTom = function() {
+			$scope.students.splice(0, 0, {
+				name : 'Tom Thumb',
+				id : '4'
+			});
+		};
+	});
+</script>
+<script>
+	var album = [ {
+		name : 'Southwest Serenade',
+		duration : '2:34'
+	}, {
+		name : 'Northern Light Waltz',
+		duration : '3:21'
+	}, {
+		name : 'Eastern Tango',
+		duration : '17:45'
+	} ];
+	
+	function AlbumController($scope) {
+		$scope.album = album;
+	}
+</script>
+
+</head>
+
+<body>
+	<div ng-controller='StudentListController'>
+		<p>Display Student List using ng-repeat</p>
+		<ul>
+			<li ng-repeat='student in students'><a
+				href='/student/view/{{student.id}}'>{{student.name}}</a></li>
+		</ul>
+		<button ng-click="insertTom()">Insert Tom</button>
+	</div>
+	<div>
+		<table ng-controller='AlbumController'>
+			<tr ng-repeat='track in album'>
+				<td>{{$index + 1}}</td>
+				<td>{{track.name}}</td>
+				<td>{{track.duration}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

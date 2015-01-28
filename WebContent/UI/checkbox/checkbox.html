@@ -1,0 +1,51 @@
+<html ng-app="myApp">
+<head>
+<base href="http://localhost:8080/AngularDemo/">
+<script src="UI/common/js/angular.js"></script>
+<!-- init app -->
+<script>
+	var myAppModule = angular.module("myApp", []);
+</script>
+
+<!-- add controllers -->
+<script>
+		myAppModule.controller("CheckboxController", function($scope) {
+			var data = {};
+			$scope.data = data;
+			$scope.isChecked = true;
+			
+			$scope.checkStatus = function() {
+				if ($scope.isChecked) {
+					data.checkStatusLabel = "Checked";
+				} else {
+					data.checkStatusLabel = "UnChecked";
+				}
+			}
+			
+			$scope.changeStatus = function() {
+				if ($scope.isChecked) {
+					data.changeStatusLabel = "Checked";
+				} else {
+					data.changeStatusLabel = "UnChecked";
+				}
+			}
+		});
+	</script>
+</head>
+
+<body>
+	<form ng-controller="CheckboxController">
+		<label>Try Me: </label> <input type="checkbox"
+			ng-change="changeStatus()" ng-model="isChecked" /> <br />
+		<div>
+			<span>ng-change event: </span> <span ng-bind="data.changeStatusLabel"></span>
+		</div>
+		<br />
+		<div>
+			<button ng-click="checkStatus()">Check Status</button>
+			<br/>
+			<label>ng-click event: </label> <span ng-bind="data.checkStatusLabel"></span>
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<html ng-app="myApp">
+<head>
+<base href="http://localhost:8080/AngularDemo/">
+<script src="UI/common/js/angular.js"></script>
+<!-- init app -->
+<script>
+	var myAppModule = angular.module("myApp", []);
+</script>
+
+<!-- add controllers -->
+<script>
+	myAppModule.controller("ParentController", function($scope) {
+		$scope.data = {
+			name : 'ParentData',
+			value : 15
+		};
+		$scope.setValue = function() {
+			$scope.data.value = 20;
+		};
+	});
+	
+	myAppModule.controller("ChildController", function($scope) {
+		$scope.setValue = function() {
+			$scope.data.value = 10;
+		};
+	});
+</script>
+</head>
+
+<body>
+	<div ng-controller='ParentController'>
+		<p>Parent Value is: {{data.value}}</p>
+		<button ng-click='setValue()'>Set Value From Parent Controller</button>
+		<div ng-controller='ChildController'>
+			<p>Data Name is: {{data.name}}</p>
+			<p>Child Value is: {{data.value}}</p>
+			<button ng-click='setValue()'>Set Value From Child Controller</button>
+		</div>
+	</div>
+</body>
+</html>
